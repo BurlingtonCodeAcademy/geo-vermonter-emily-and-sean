@@ -21,7 +21,7 @@ render() {
 
     return (
 
-        <Map center={[44.0886, -72.7317]} zoom={8} style={{height: '600px', width: '600px'}}>
+        <Map center={[43.900, -72.7317]} zoom={8} style={{height: '600px', width: '600px'}}>
             <TileLayer 
                 url='https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'/>
 
