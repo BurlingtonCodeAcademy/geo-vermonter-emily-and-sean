@@ -17,8 +17,10 @@ class App extends React.Component {
       initialLng: -72.7317,
       currentLat: 43.900,
       currentLng: -72.7317,
-      town: '',
-      county: '',
+      town: '?',
+      county: '?',
+      latDisplay: "?",
+      lngDisplay: "?",
       startEnabled: false,
       guessDisabled: true, 
       quitDisabled: true, 
@@ -89,7 +91,7 @@ render() {
 
      <Button handleStart= {this.handleStart} startEnabled ={this.startEnabled} guessDisabled= {this.guessDisabled}quitDisabled= {this.quitDisabled}/>
 
-     <Display initialLat={this.state.initialLat} initialLng={this.state.initialLng} town={this.state.town} county={this.state.county} />
+     <Display initialLat={this.state.initialLat} initialLng={this.state.initialLng} town={this.state.town} county={this.state.county} latDisplay={this.state.latDisplay} lngDisplay={this.state.lngDisplay}/>
     </>
     )
   }
