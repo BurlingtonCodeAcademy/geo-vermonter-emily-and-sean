@@ -41,11 +41,11 @@ class App extends React.Component {
     quitButton.disabled= false;
 
   //Gives a random lat and lng between the max and min lat and lng of Vermont. 
-   let randomLng=  -(Math.random() * (73.40975057247658 - 71.51752027568435 ) +71.51752027568435 )
-   let randomLat =(Math.random()*(45.007561302382754-42.730315121762715  )+42.730315121762715 );
- 
- 
+   let randomLng=  -(Math.random() * (73.352182 - 71.510225 ) +73.352182
 
+   )
+   let randomLat =(Math.random()*( 45.005419-42.730315)+42.730315 );
+ 
    
 };
 
