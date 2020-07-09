@@ -35,9 +35,9 @@ class Button extends React.Component{
     render(){
         return ( 
        <div>
-           <button class="button" id="startButton" onClick= {this.handleStart}> Start Game</button> {/* Create Start Button */}
-           <button disabled={true} class="button" id= "guessButton" onClick= {this.handleGuess}> Guess</button> {/* Create Guess Button */}
-           <button disabled={true} class="button" id= "quitButton" onClick= {this.handleQuit}> Quit</button> {/* Create Quit Button */}
+           <button className="button" id="startButton" onClick= {this.handleStart}> Start Game</button> {/* Create Start Button */}
+           <button disabled={true} className="button" id= "guessButton" onClick= {this.handleGuess}> Guess</button> {/* Create Guess Button */}
+           <button disabled={true} className="button" id= "quitButton" onClick= {this.handleQuit}> Quit</button> {/* Create Quit Button */}
        </div> 
     )}
 }

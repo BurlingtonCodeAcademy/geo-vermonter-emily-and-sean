@@ -1,24 +1,15 @@
 import React from 'react'
 
-class Display extends React.Component {
-    constructor(props) {
-        super(props) 
 
-        this.state = {
-            lat: '',
-            lng: '',
-            town: '',
-            county: '',
-            
-        }
-    }
+class Display extends React.Component {
+    
     render() {
         
-        return (<div class='display' >
-            <div id='lat'>Latitude: </div>
-            <div id='lng'>Longitude: </div>
-            <div id='town'>Town: </div>
-            <div id='county'>County: </div>
+        return (<div className='display' >
+            <div id='lat' lat={this.props.initialLat}>Latitude: </div>
+            <div id='lng'lng={this.props.initialLng}>Longitude: </div>
+            <div id='town' town={this.props.town}>Town: </div>
+            <div id='county' county={this.props.county}>County: </div>
         </div>)
     }
 }
