@@ -13,15 +13,16 @@ class App extends React.Component {
     super(props)
 
     this.state = {
-      initialLat: '',
-      initialLng: '',
-      currentLat: [],
-      currentLng: [],
+      initialLat: 43.900,
+      initialLng: -72.7317,
+      currentLat: 43.900,
+      currentLng: -72.7317,
       town: '',
       county: '',
       startEnabled: false,
       guessDisabled: true, 
-      quitDisabled: true 
+      quitDisabled: true, 
+      zoom: 8
     }
   }
 
@@ -45,45 +46,35 @@ class App extends React.Component {
     quitButton.disabled= false;
 
     //Creates the array of location lat and lng
-    let start =randomLocation();
+    let start = randomLocation();
     this.setState({
       currentLat: start[1],
       currentLng: start[0],
       initialLat: start[1],
-      initialLng: start[0]
+      initialLng: start[0],
+      zoom: 18
     })
 
 
   //Gives a random lat and lng between the max and min lat and lng of Vermont. 
-  function randomLocation() { 
-  let randomLng = -1 * (Math.random() * (71.510225 - 73.352182 ) +73.352182)
-  let randomLat = (Math.random()*( 45.005419-42.730315)+42.730315 );
+    function randomLocation() { 
+    let randomLng = -1 * (Math.random() * (71.510225 - 73.352182 ) +73.352182)
+    let randomLat = (Math.random()*( 45.005419-42.730315)+42.730315 );
   
-  let stateBorder = L.geoJson(borderData)
-  console.log(stateBorder)
+    let stateBorder = L.geoJson(borderData)
+    console.log(stateBorder)
 
-  let results = leafletPip.pointInLayer([randomLng, randomLat], stateBorder)
-  console.log(results)
+    let results = leafletPip.pointInLayer([randomLng, randomLat], stateBorder)
+    console.log(results)
   
-  while(results.length === 0) {
+    while(results.length === 0) {
      randomLng = -1 * (Math.random() * (71.510225 - 73.352182 ) +73.352182)
      randomLat = (Math.random()*( 45.005419-42.730315)+42.730315 );
      results = leafletPip.pointInLayer([randomLng, randomLat], stateBorder)
-  }
+    }
   
-  return [randomLng, randomLat]
+    return [randomLng, randomLat]
 
-   /*this.setState({
-    currentLat: randomLat,
-    currentLng: randomLng,
-    initialLat: randomLat,
-    initialLng: randomLng
-   })
-   let randomLngLat = [randomLng, randomLat];
-   console.log(randomLngLat); */
-  //  <Marker position={randomLngLat}>
-
-  //  </Marker>
    
   }
  }
@@ -94,7 +85,7 @@ render() {
     console.log(this.state)
     return (
     <>
-     <VTMap currentLat={this.state.currentLat} currentLng={this.state.currentLng}/>
+     <VTMap currentLat={this.state.initialLat} currentLng={this.state.initialLng} zoomFactor= {this.state.zoom}/>
 
      <Button handleStart= {this.handleStart} startEnabled ={this.startEnabled} guessDisabled= {this.guessDisabled}quitDisabled= {this.quitDisabled}/>
 

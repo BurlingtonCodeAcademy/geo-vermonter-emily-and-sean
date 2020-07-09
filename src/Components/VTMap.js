@@ -1,17 +1,12 @@
 import React from 'react'
 import {Map, TileLayer, Polygon} from 'react-leaflet'
+import leafletPip from 'leaflet-pip'
+import L from 'leaflet'
 import borderData from './border.js'
 
 
 
 class VTMap extends React.Component {
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            
-        }
-    }
 
 
 render() {
@@ -20,8 +15,8 @@ render() {
     })
 
     return (
-
-        <Map center={[43.900, -72.7317]} zoom={8} style={{height: '600px', width: '600px'}}>
+        
+        <Map center={[this.props.currentLat, this.props.currentLng]} zoom={this.props.zoomFactor} style={{height: '600px', width: '600px'}}>
             <TileLayer 
                 url='https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'/>
 
