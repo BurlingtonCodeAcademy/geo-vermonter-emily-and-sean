@@ -7,6 +7,8 @@ import borderData from "./Components/border.js";
 import leafletPip from "leaflet-pip";
 import L from "leaflet";
 import { Map, Marker, TileLayer, Polygon } from "react-leaflet";
+import GuessBox from "./Components/guessBox.js"
+import "./CSS/index.css" 
 
 class App extends React.Component {
   constructor(props) {
@@ -26,6 +28,7 @@ class App extends React.Component {
       guessDisabled: true,
       quitDisabled: true,
       zoom: 8,
+      modal: false
     };
   }
 
@@ -66,6 +69,21 @@ class App extends React.Component {
       return [randomLng, randomLat];
     }
   };
+
+  handleGuess=(evt)=>{
+    console.log("This is hitting this clause")
+    evt.preventDefault();
+    this.setState({
+      modal: true,
+
+    })
+  }
+
+  closeModal = (evt) => {
+    evt.preventDefault();
+    this.setState(() => {
+      return { modal: false };
+    })};
 
   //Function handles a quit, displays the lat/long, town and county
   handleQuit = (evt) => {
@@ -111,6 +129,7 @@ class App extends React.Component {
           startDisabled={this.state.startDisabled}
           //Adds methods to the guess function
           guessDisabled={this.state.guessDisabled}
+          handleGuess={this.handleGuess}
           //Adds methods to the quit button
           quitDisabled={this.state.quitDisabled}
           handleQuit={this.handleQuit}
@@ -124,6 +143,7 @@ class App extends React.Component {
           latDisplay={this.state.latDisplay}
           lngDisplay={this.state.lngDisplay}
         />
+        <GuessBox modal={this.state.modal} />
       </>
     );
   }
