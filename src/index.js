@@ -30,8 +30,6 @@ class App extends React.Component {
 
   //When user clicks on start, the start button is disabled and the guess and quit button are enabled
   handleStart = (evt) => {
-    
-
     evt.preventDefault();
     let start = randomLocation();
     this.setState({
@@ -45,7 +43,6 @@ class App extends React.Component {
       zoom: 18,
     });
 
-
     //Gives a random lat and lng between the max and min lat and lng of Vermont.
     function randomLocation() {
       let randomLng =
@@ -53,13 +50,11 @@ class App extends React.Component {
       let randomLat = Math.random() * (45.005419 - 42.730315) + 42.730315;
 
       let stateBorder = L.geoJson(borderData);
-      
 
       let results = leafletPip.pointInLayer(
         [randomLng, randomLat],
         stateBorder
       );
-   
 
       while (results.length === 0) {
         randomLng = -1 * (Math.random() * (71.510225 - 73.352182) + 73.352182);
@@ -73,34 +68,31 @@ class App extends React.Component {
 
   //Function handles a quit, displays the lat/long, town and county
   handleQuit = (evt) => {
-     evt.preventDefault();
+    evt.preventDefault();
 
-    let nomTown = ''
-    let nomCounty = ''
-   
-    fetch(`https://nominatim.openstreetmap.org/reverse?lat=${this.state.initialLat}&lon=${this.state.initialLng}&format=geojson`
+    fetch(
+      `https://nominatim.openstreetmap.org/reverse?lat=${this.state.initialLat}&lon=${this.state.initialLng}&format=geojson`
     )
-    .then((res) =>  res.json())
-    .then(json => {
-      this.setState({
-        startDisabled: false,
-        guessDisabled: true,
-        quitDisabled: true,
-        town: json.features[0].properties.address.city,
-        county: json.features[0].properties.address.county,
-        latDisplay: this.state.initialLat,
-        lngDisplay: this.state.initialLng,
+      .then((res) => res.json())
+      .then((json) => {
+        console.log(json)
+        this.setState({
+          startDisabled: false,
+          guessDisabled: true,
+          quitDisabled: true,
+          town:
+            (json.features[0].properties.address.city ||
+            json.features[0].properties.address.town ||
+            json.features[0].properties.address.village ||
+            json.features[0].properties.address.hamlet),
+          county: json.features[0].properties.address.county,
+          latDisplay: this.state.initialLat,
+          lngDisplay: this.state.initialLng,
+        });
       });
-    })
     //Sets the state of the buttons
-    
 
-    console.log(nomTown)
-    console.log(nomCounty)
   };
-
-  
-
 
   render() {
     console.log(this.state);
@@ -113,16 +105,14 @@ class App extends React.Component {
         />
 
         <Button
-        //Adds methods to the start function
+          //Adds methods to the start function
           handleStart={this.handleStart}
           startDisabled={this.state.startDisabled}
-
           //Adds methods to the guess function
           guessDisabled={this.state.guessDisabled}
-
           //Adds methods to the quit button
-          quitDisabled={this.state.quitDisabled} 
-          handleQuit= {this.handleQuit}
+          quitDisabled={this.state.quitDisabled}
+          handleQuit={this.handleQuit}
         />
 
         <Display
