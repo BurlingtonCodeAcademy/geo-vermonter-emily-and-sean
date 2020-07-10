@@ -73,21 +73,33 @@ class App extends React.Component {
 
   //Function handles a quit, displays the lat/long, town and county
   handleQuit = (evt) => {
-     
+     evt.preventDefault();
 
-    evt.preventDefault();
+    let nomTown = ''
+    let nomCounty = ''
    
+    fetch(`https://nominatim.openstreetmap.org/reverse?lat=${this.state.initialLat}&lon=${this.state.initialLng}&format=geojson`
+    )
+    .then((res) =>  res.json())
+    .then(json => {
+      this.setState({
+        startDisabled: false,
+        guessDisabled: true,
+        quitDisabled: true,
+        town: json.features[0].properties.address.city,
+        county: json.features[0].properties.address.county,
+        latDisplay: this.state.initialLat,
+        lngDisplay: this.state.initialLng,
+      });
+    })
     //Sets the state of the buttons
-    this.setState({
-      startDisabled: false,
-      guessDisabled: true,
-      quitDisabled: true,
-      town: "?",
-      county: "?",
-      latDisplay: this.state.initialLat,
-      lngDisplay: this.state.initialLng,
-    });
+    
+
+    console.log(nomTown)
+    console.log(nomCounty)
   };
+
+  
 
 
   render() {
