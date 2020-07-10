@@ -12,6 +12,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
+
     this.state = {
       initialLat: 43.9,
       initialLng: -72.7317,
@@ -98,7 +99,7 @@ class App extends React.Component {
     console.log(this.state);
     return (
       <>
-        <VTMap
+        <VTMap 
           currentLat={this.state.initialLat}
           currentLng={this.state.initialLng}
           zoomFactor={this.state.zoom}

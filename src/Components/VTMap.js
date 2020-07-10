@@ -7,7 +7,7 @@ import borderData from './border.js'
 
 
 class VTMap extends React.Component {
-
+ 
 
 render() {
     let vtBorder = borderData.geometry.coordinates[0].map(coordSet => {
@@ -16,7 +16,7 @@ render() {
 
     return (
         
-        <Map center={[this.props.currentLat, this.props.currentLng]} zoom={this.props.zoomFactor} style={{height: '600px', width: '600px'}}>
+        <Map center={[this.props.currentLat, this.props.currentLng]} zoom={this.props.zoomFactor} style={{height: '600px', width: '600px'}} zoomControl={false} dragging={false}>
             <TileLayer 
                 url='https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'/>
 
