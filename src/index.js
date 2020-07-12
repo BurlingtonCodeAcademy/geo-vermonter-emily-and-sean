@@ -195,6 +195,7 @@ class App extends React.Component {
     })
   }
 
+  //Moves to the West
   moveWest =(evt)=>{
     evt.preventDefault();
     let currentLng= this.state.currentLng - 0.002;
@@ -205,6 +206,16 @@ class App extends React.Component {
       score: score
     })
   }
+
+//Returns user to start location
+returnToStart= (evt)=>{
+  evt.preventDefault();
+  this.setState({
+    currentLat: this.state.initialLat,
+    currentLng: this.state.initialLng
+
+  })
+}
 
   render() {
     console.log(this.state);
@@ -239,7 +250,7 @@ class App extends React.Component {
 
         <GuessBox modal={this.state.modal} closeModal={this.closeModal} makeGuess={this.makeGuess}/>
 
-        <Move moveNorth={this.moveNorth} moveEast={this.moveEast} moveSouth={this.moveSouth} moveWest={this.moveWest}/>
+        <Move moveNorth={this.moveNorth} moveEast={this.moveEast} moveSouth={this.moveSouth} moveWest={this.moveWest} returnToStart={this.returnToStart}/>
 
       </>
     );

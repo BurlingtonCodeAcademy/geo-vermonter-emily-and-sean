@@ -16,6 +16,9 @@ class Move extends React.Component{
              <div id="moveWest" onClick={this.props.moveWest}>
              Move West
              </div>
+             <div id="return" onClick={this.props.returnToStart}>
+             Return to Start
+             </div>
          </div>
 
      )  
