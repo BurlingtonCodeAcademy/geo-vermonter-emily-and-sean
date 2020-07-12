@@ -9,6 +9,7 @@ import L from "leaflet";
 import { Map, Marker, TileLayer, Polygon } from "react-leaflet";
 import GuessBox from "./Components/guessBox.js"
 import "./CSS/index.css" 
+import Move from "./Components/Move.js"
 
 class App extends React.Component {
   constructor(props) {
@@ -71,8 +72,8 @@ class App extends React.Component {
     }
   };
 
+//Opens the modal
   handleGuess=(evt)=>{
-    console.log("This is hitting this clause")
     evt.preventDefault();
     this.setState({
       modal: true,
@@ -80,6 +81,7 @@ class App extends React.Component {
     })
   }
 
+//This function closes the modal
   closeModal = (evt) => {
     evt.preventDefault();
     this.setState(() => {
@@ -87,6 +89,7 @@ class App extends React.Component {
     })};
 
 
+  //This function allows user to make a guess. Fetches the county, if the guess is the same county displays score. If guess is incorrect, subtracts ten from score and displays score
   makeGuess = (evt) => {
     evt.preventDefault()
 
@@ -119,9 +122,11 @@ class App extends React.Component {
       } else {
         currentScore = currentScore - 10;
         this.setState({
-          score: currentScore
+          score: currentScore,
+          modal: false
         })
-      }
+      }  
+      alert(`You are wrong! Your score is now: ${currentScore}`)
     })
 
   }
@@ -152,14 +157,62 @@ class App extends React.Component {
     //Sets the state of the buttons
 
   };
+  
+  //Movement function
+  //Moves the map to the North
+  moveNorth =(evt)=>{
+    evt.preventDefault();
+    let currentLat= this.state.currentLat + 0.002;
+    let score= this.state.score -1
+
+    this.setState({
+      currentLat: currentLat,
+      score: score
+    })
+  }
+
+  //Moves the map to the East
+  moveEast =(evt)=>{
+    evt.preventDefault();
+    let currentLng= this.state.currentLng + 0.002;
+    let score= this.state.score -1
+
+    this.setState({
+      currentLng: currentLng,
+      score: score
+    })
+  }
+
+  //Moves the map to the South
+  moveSouth =(evt)=>{
+    evt.preventDefault();
+    let currentLat= this.state.currentLat - 0.002;
+    let score= this.state.score -1
+
+    this.setState({
+      currentLat: currentLat, 
+      score: score
+    })
+  }
+
+  moveWest =(evt)=>{
+    evt.preventDefault();
+    let currentLng= this.state.currentLng - 0.002;
+    let score = this.state.score
+    score = score - 1
+    this.setState({
+      currentLng: currentLng,
+      score: score
+    })
+  }
 
   render() {
     console.log(this.state);
     return (
       <>
         <VTMap 
-          currentLat={this.state.initialLat}
-          currentLng={this.state.initialLng}
+          currentLat={this.state.currentLat}
+          currentLng={this.state.currentLng}
           zoomFactor={this.state.zoom}
         />
 
@@ -185,6 +238,8 @@ class App extends React.Component {
         />
 
         <GuessBox modal={this.state.modal} closeModal={this.closeModal} makeGuess={this.makeGuess}/>
+
+        <Move moveNorth={this.moveNorth} moveEast={this.moveEast} moveSouth={this.moveSouth} moveWest={this.moveWest}/>
 
       </>
     );
