@@ -28,7 +28,8 @@ class App extends React.Component {
       guessDisabled: true,
       quitDisabled: true,
       zoom: 8,
-      modal: false
+      modal: false,
+      score: 100
     };
   }
 
@@ -85,13 +86,52 @@ class App extends React.Component {
       return { modal: false };
     })};
 
+
+  makeGuess = (evt) => {
+    evt.preventDefault()
+
+    let selectedCounty = document.getElementById("countyList").value
+    let currentScore = this.state.score;
+    
+
+    fetch(`https://nominatim.openstreetmap.org/reverse?lat=${this.state.initialLat}&lon=${this.state.initialLng}&format=geojson`)
+    .then((res) => res.json())
+    .then((json) => {
+      console.log(json.features[0].properties.address.county)
+      if (selectedCounty === json.features[0].properties.address.county) {
+        this.setState({
+          startDisabled: false,
+          guessDisabled: true,
+          quitDisabled: true,
+          town:
+            (json.features[0].properties.address.city ||
+            json.features[0].properties.address.town ||
+            json.features[0].properties.address.village ||
+            json.features[0].properties.address.hamlet),
+          county: json.features[0].properties.address.county,
+          latDisplay: this.state.initialLat,
+          lngDisplay: this.state.initialLng,
+          modal: false
+        })
+
+        alert(`You are correct! Your score is: ${currentScore}`)
+
+      } else {
+        currentScore = currentScore - 10;
+        this.setState({
+          score: currentScore
+        })
+      }
+    })
+
+  }
+
   //Function handles a quit, displays the lat/long, town and county
   handleQuit = (evt) => {
     evt.preventDefault();
 
     fetch(
-      `https://nominatim.openstreetmap.org/reverse?lat=${this.state.initialLat}&lon=${this.state.initialLng}&format=geojson`
-    )
+      `https://nominatim.openstreetmap.org/reverse?lat=${this.state.initialLat}&lon=${this.state.initialLng}&format=geojson`)
       .then((res) => res.json())
       .then((json) => {
         console.log(json)
@@ -143,7 +183,9 @@ class App extends React.Component {
           latDisplay={this.state.latDisplay}
           lngDisplay={this.state.lngDisplay}
         />
-        <GuessBox modal={this.state.modal} />
+
+        <GuessBox modal={this.state.modal} closeModal={this.closeModal} makeGuess={this.makeGuess}/>
+
       </>
     );
   }
