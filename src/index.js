@@ -218,7 +218,7 @@ returnToStart= (evt)=>{
 }
 
   render() {
-    console.log(this.state);
+   //Adds the components 
     return (
       <>
         <VTMap 
