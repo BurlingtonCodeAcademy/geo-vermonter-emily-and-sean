@@ -13,6 +13,7 @@ import GameWon from "./Components/gameWon.js"
 
 let localStore = window.localStorage;
 
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -35,8 +36,8 @@ class App extends React.Component {
       winModal: false,
       score: 100,
       moveArr: [],
-      highScore: localStore.getItem("Sean") || 0,
-      userName: localStore.getItem("Sean") || ''
+      highScore: localStore.getItem("scores") || 0,
+      userName: localStore.getItem("scores") || ''
     };
   }
 
@@ -101,10 +102,13 @@ class App extends React.Component {
     let stringScore = this.state.score.toString()
     let scoreObj = {
       name: this.state.userName,
-      score: stringScore
+      score: stringScore,
     }
     scores.push(scoreObj)
     localStore.setItem("scores", JSON.stringify(scores))
+    /*this.setState({
+      modal: false
+    })*/
     
   }
 
@@ -112,7 +116,8 @@ class App extends React.Component {
     evt.preventDefault()
     let userName = evt.target.value;
     this.setState({
-      userName: userName
+      userName: userName,
+      
     })
   }
 
@@ -154,8 +159,8 @@ class App extends React.Component {
           score: currentScore,
           modal: false
         })
+        alert(`You are wrong! Your score is now: ${currentScore}`)
       }  
-      alert(`You are wrong! Your score is now: ${currentScore}`)
     })
 
   }
