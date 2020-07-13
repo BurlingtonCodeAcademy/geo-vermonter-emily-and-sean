@@ -30,7 +30,8 @@ class App extends React.Component {
       quitDisabled: true,
       zoom: 8,
       modal: false,
-      score: 100
+      score: 100,
+      moveArr: [],
     };
   }
 
@@ -46,9 +47,10 @@ class App extends React.Component {
       currentLng: start[0],
       initialLat: start[1],
       initialLng: start[0],
+      moveArr: this.state.moveArr.concat([[start[1], start[0]]]),
       zoom: 18,
     });
-
+    console.log(this.state)
     //Gives a random lat and lng between the max and min lat and lng of Vermont.
     function randomLocation() {
       let randomLng =
@@ -154,7 +156,7 @@ class App extends React.Component {
           lngDisplay: this.state.initialLng,
         });
       });
-    //Sets the state of the buttons
+  
 
   };
   
@@ -163,23 +165,30 @@ class App extends React.Component {
   moveNorth =(evt)=>{
     evt.preventDefault();
     let currentLat= this.state.currentLat + 0.002;
+    let currentLng = this.state.currentLng
     let score= this.state.score -1
+    console.log(currentLat)
+    console.log(currentLng)
 
     this.setState({
       currentLat: currentLat,
-      score: score
+      score: score, 
+      moveArr: this.state.moveArr.concat([[currentLat, currentLng]])
     })
+    console.log(this.state.moveArr)
   }
 
   //Moves the map to the East
   moveEast =(evt)=>{
     evt.preventDefault();
+    let currentLat= this.state.currentLat
     let currentLng= this.state.currentLng + 0.002;
     let score= this.state.score -1
 
     this.setState({
       currentLng: currentLng,
-      score: score
+      score: score,
+      moveArr: this.state.moveArr.concat([[currentLat, currentLng]])
     })
   }
 
@@ -187,23 +196,27 @@ class App extends React.Component {
   moveSouth =(evt)=>{
     evt.preventDefault();
     let currentLat= this.state.currentLat - 0.002;
+    let currentLng = this.state.currentLng
     let score= this.state.score -1
 
     this.setState({
       currentLat: currentLat, 
-      score: score
+      score: score,
+      moveArr: this.state.moveArr.concat([[currentLat, currentLng]])
     })
   }
 
   //Moves to the West
   moveWest =(evt)=>{
     evt.preventDefault();
+    let currentLat= this.state.currentLat
     let currentLng= this.state.currentLng - 0.002;
     let score = this.state.score
     score = score - 1
     this.setState({
       currentLng: currentLng,
-      score: score
+      score: score,
+      moveArr: this.state.moveArr.concat([[currentLat, currentLng]])
     })
   }
 
@@ -225,6 +238,7 @@ returnToStart= (evt)=>{
           currentLat={this.state.currentLat}
           currentLng={this.state.currentLng}
           zoomFactor={this.state.zoom}
+          moveArr={this.state.moveArr}
         />
 
         <Button
@@ -246,6 +260,7 @@ returnToStart= (evt)=>{
           county={this.state.county}
           latDisplay={this.state.latDisplay}
           lngDisplay={this.state.lngDisplay}
+          score={this.state.score}
         />
 
         <GuessBox modal={this.state.modal} closeModal={this.closeModal} makeGuess={this.makeGuess}/>
