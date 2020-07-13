@@ -194,15 +194,14 @@ class App extends React.Component {
     let currentLat= this.state.currentLat + 0.002;
     let currentLng = this.state.currentLng
     let score= this.state.score -1
-    console.log(currentLat)
-    console.log(currentLng)
+
 
     this.setState({
       currentLat: currentLat,
       score: score, 
       moveArr: this.state.moveArr.concat([[currentLat, currentLng]])
     })
-    console.log(this.state.moveArr)
+  
   }
 
   //Moves the map to the East
@@ -306,7 +305,14 @@ returnToStart= (evt)=>{
           handleChange={this.handleChange}
         />
 
-        <Move moveNorth={this.moveNorth} moveEast={this.moveEast} moveSouth={this.moveSouth} moveWest={this.moveWest} returnToStart={this.returnToStart}/>
+        <Move 
+        startDisabled ={this.state.startDisabled}
+        moveNorth={this.moveNorth} 
+        moveEast={this.moveEast} 
+        moveSouth={this.moveSouth} 
+        moveWest={this.moveWest} 
+        returnToStart={this.returnToStart}
+        />
 
       </>
     );

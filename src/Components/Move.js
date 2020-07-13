@@ -2,7 +2,10 @@ import React from "react"
 
 class Move extends React.Component{
     render(){
+        const startDisabled= this.props.startDisabled;
      return (
+         <div>
+        {startDisabled ? ( 
          <div id="movesContainer">
              <div id="moveNorth" onClick={this.props.moveNorth}>
                 Move North
@@ -20,8 +23,10 @@ class Move extends React.Component{
              Return to Start
              </div>
          </div>
-
-     )  
+        
+         ) : null}
+         </div>
+     ) 
     }
 }
 

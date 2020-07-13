@@ -5,7 +5,8 @@ class Display extends React.Component {
     
     render() {
         
-        return (<div className='display' >
+        return (
+        <div className='display' >
             <div id='lat'>Latitude: {this.props.latDisplay} </div>
             <div id='lng'>Longitude: {this.props.lngDisplay} </div>
             <div id='town' >Town: {this.props.town} </div>
