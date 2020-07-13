@@ -36,10 +36,28 @@ class App extends React.Component {
       winModal: false,
       score: 100,
       moveArr: [],
-      highScore: localStore.getItem("scores") || 0,
-      userName: localStore.getItem("scores") || ''
+      allScores: localStore.getItem("scores") || "",
+      highScore: "",
+      userName: ""
     };
   }
+
+//Getting all scores
+componentDidMount(){
+  let allScores= this.state.allScores;
+  JSON.parse(allScores); 
+  let highestScore= JSON.parse(allScores).reduce((previousValue, nextValue)=>{
+    if (parseInt(previousValue.score) > parseInt (nextValue.score)){
+      return previousValue
+    }else{
+      return nextValue
+    }
+  });
+  this.setState({
+    highScore: highestScore.score
+  })
+}
+
 
   //When user clicks on start, the start button is disabled and the guess and quit button are enabled
   handleStart = (evt) => {
@@ -56,7 +74,7 @@ class App extends React.Component {
       moveArr: this.state.moveArr.concat([[start[1], start[0]]]),
       zoom: 18,
     });
-    console.log(this.state)
+
     //Gives a random lat and lng between the max and min lat and lng of Vermont.
     function randomLocation() {
       let randomLng =
@@ -93,9 +111,11 @@ class App extends React.Component {
   closeModal = (evt) => {
     evt.preventDefault();
     this.setState(() => {
-      return { modal: false };
+      return { modal: false,
+      winModal: false};
     })};
-  
+
+//Creating a scores object and updating the array of all scores.
   submitName = (evt) => {
     evt.preventDefault()
     let scores = JSON.parse(localStore.getItem("scores")) || []
@@ -106,12 +126,13 @@ class App extends React.Component {
     }
     scores.push(scoreObj)
     localStore.setItem("scores", JSON.stringify(scores))
-    /*this.setState({
-      modal: false
-    })*/
+    this.setState({
+      winModal: false
+    })
     
   }
 
+  //Sets the username
   handleChange = (evt) => {
     evt.preventDefault()
     let userName = evt.target.value;
