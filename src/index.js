@@ -53,8 +53,9 @@ componentDidMount(){
       return nextValue
     }
   });
+  console.log(highestScore)
   this.setState({
-    highScore: highestScore.score
+    highScore: highestScore.score + ' ' + highestScore.name
   })
 }
 
