@@ -6,10 +6,12 @@ import Display from "./Components/InfoBox.js";
 import borderData from "./Components/border.js";
 import leafletPip from "leaflet-pip";
 import L from "leaflet";
-import { Map, Marker, TileLayer, Polygon } from "react-leaflet";
 import GuessBox from "./Components/guessBox.js"
 import "./CSS/index.css" 
 import Move from "./Components/Move.js"
+import GameWon from "./Components/gameWon.js"
+
+let localStore = window.localStorage;
 
 class App extends React.Component {
   constructor(props) {
@@ -30,8 +32,11 @@ class App extends React.Component {
       quitDisabled: true,
       zoom: 8,
       modal: false,
+      winModal: false,
       score: 100,
       moveArr: [],
+      highScore: localStore.getItem("Sean") || 0,
+      userName: localStore.getItem("Sean") || ''
     };
   }
 
@@ -89,6 +94,27 @@ class App extends React.Component {
     this.setState(() => {
       return { modal: false };
     })};
+  
+  submitName = (evt) => {
+    evt.preventDefault()
+    let scores = JSON.parse(localStore.getItem("scores")) || []
+    let stringScore = this.state.score.toString()
+    let scoreObj = {
+      name: this.state.userName,
+      score: stringScore
+    }
+    scores.push(scoreObj)
+    localStore.setItem("scores", JSON.stringify(scores))
+    
+  }
+
+  handleChange = (evt) => {
+    evt.preventDefault()
+    let userName = evt.target.value;
+    this.setState({
+      userName: userName
+    })
+  }
 
 
   //This function allows user to make a guess. Fetches the county, if the guess is the same county displays score. If guess is incorrect, subtracts ten from score and displays score
@@ -116,7 +142,8 @@ class App extends React.Component {
           county: json.features[0].properties.address.county,
           latDisplay: this.state.initialLat,
           lngDisplay: this.state.initialLng,
-          modal: false
+          modal: false,
+          winModal: true
         })
 
         alert(`You are correct! Your score is: ${currentScore}`)
@@ -261,9 +288,23 @@ returnToStart= (evt)=>{
           latDisplay={this.state.latDisplay}
           lngDisplay={this.state.lngDisplay}
           score={this.state.score}
+          highScore={this.state.highScore}
+          user={this.state.userName}
         />
 
-        <GuessBox modal={this.state.modal} closeModal={this.closeModal} makeGuess={this.makeGuess}/>
+        <GuessBox 
+          modal={this.state.modal} 
+          closeModal={this.closeModal} 
+          makeGuess={this.makeGuess}
+        />
+
+        <GameWon
+          winModal={this.state.winModal}
+          submitName={this.submitName}
+          closeModal={this.closeModal}
+          userName={this.state.userName}
+          handleChange={this.handleChange}
+        />
 
         <Move moveNorth={this.moveNorth} moveEast={this.moveEast} moveSouth={this.moveSouth} moveWest={this.moveWest} returnToStart={this.returnToStart}/>
 

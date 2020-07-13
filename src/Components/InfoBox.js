@@ -11,6 +11,7 @@ class Display extends React.Component {
             <div id='town' >Town: {this.props.town} </div>
             <div id='county'>County: {this.props.county} </div>
             <div id='scoreDisplay'> Score: {this.props.score}</div>
+            <div id='highScore'>High Score: {this.props.highScore} {this.props.userName}</div>
         </div>)
     }
 }

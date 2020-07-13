@@ -7,8 +7,8 @@ class GuessBox extends React.Component{
        
   <div>
     {modal ? (
-        <div id="modalcontainer">
-                <div id="modal">
+        <div class="modalcontainer">
+                <div class="modal">
                     <h1>What County are we in?</h1>
                     <label for="counties">Choose and county:</label>
 
@@ -30,22 +30,6 @@ class GuessBox extends React.Component{
 
                     <button id="makeGuess" onClick={this.props.makeGuess}>Select County</button>
                     <button id="cancelGuess" onClick={this.props.closeModal}>Cancel</button>
-                    {/* <ul>
-                        <li>Addison</li>
-                        <li>Bennington</li>
-                        <li>Caledonia</li>
-                        <li>Chittenden</li>
-                        <li>Essex</li>
-                        <li>Franklin</li>
-                        <li>Grand Isle</li>
-                        <li>Lamoille</li>
-                        <li>Orange</li>
-                        <li>Orleans</li>
-                        <li>Rutland</li>
-                        <li>Washington</li>
-                        <li>Windham</li>
-                        <li>Windsor</li>
-                    </ul> */}
                 </div>
                 <button onClick={this.props.closeModal}>Close</button>  
         </div>

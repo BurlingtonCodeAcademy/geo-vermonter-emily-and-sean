@@ -1,6 +1,6 @@
 /*Styles the modal*/
 
-#modalcontainer{
+.modalcontainer{
     position: fixed;
     top: 0;
     left:0;
@@ -10,7 +10,7 @@
     z-index: 1000;
   }
   
-  #modal{
+  .modal{
     position: absolute;
     top: 20vh;
     left: calc(50% - 200px);
