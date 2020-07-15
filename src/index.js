@@ -29,8 +29,6 @@ class App extends React.Component {
       latDisplay: "?",
       lngDisplay: "?",
       startDisabled: false,
-      guessDisabled: true,
-      quitDisabled: true,
       zoom: 8,
       modal: false,
       winModal: false,
@@ -44,7 +42,7 @@ class App extends React.Component {
 
 //Getting all scores
 componentDidMount(){
-  let allScores= this.state.allScores;
+  let allScores= this.state.allScores || 0;
   JSON.parse(allScores); 
   let highestScore= JSON.parse(allScores).reduce((previousValue, nextValue)=>{
     if (parseInt(previousValue.score) > parseInt (nextValue.score)){
@@ -155,17 +153,16 @@ componentDidMount(){
     fetch(`https://nominatim.openstreetmap.org/reverse?lat=${this.state.initialLat}&lon=${this.state.initialLng}&format=geojson`)
     .then((res) => res.json())
     .then((json) => {
-      console.log(json.features[0].properties.address.county)
+      console.log(json.features[0].properties.address)
       if (selectedCounty === json.features[0].properties.address.county) {
         this.setState({
           startDisabled: false,
           guessDisabled: true,
           quitDisabled: true,
           town:
-            (json.features[0].properties.address.city ||
+            (json.features[0].properties.address.village ||
             json.features[0].properties.address.town ||
-            json.features[0].properties.address.village ||
-            json.features[0].properties.address.hamlet),
+            json.features[0].properties.address.city),
           county: json.features[0].properties.address.county,
           latDisplay: this.state.initialLat,
           lngDisplay: this.state.initialLng,
@@ -201,10 +198,9 @@ componentDidMount(){
           guessDisabled: true,
           quitDisabled: true,
           town:
-            (json.features[0].properties.address.city ||
-            json.features[0].properties.address.town ||
-            json.features[0].properties.address.village ||
-            json.features[0].properties.address.hamlet),
+            (json.features[0].properties.address.village ||
+              json.features[0].properties.address.town ||
+              json.features[0].properties.address.city),
           county: json.features[0].properties.address.county,
           latDisplay: this.state.initialLat,
           lngDisplay: this.state.initialLng,
@@ -299,10 +295,10 @@ returnToStart= (evt)=>{
           handleStart={this.handleStart}
           startDisabled={this.state.startDisabled}
           //Adds methods to the guess function
-          guessDisabled={this.state.guessDisabled}
+          guessDisabled={!this.state.startDisabled}
           handleGuess={this.handleGuess}
           //Adds methods to the quit button
-          quitDisabled={this.state.quitDisabled}
+          quitDisabled={!this.state.startDisabled}
           handleQuit={this.handleQuit}
         />
 

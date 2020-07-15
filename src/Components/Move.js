@@ -1,33 +1,32 @@
 import React from "react"
 
-class Move extends React.Component{
-    render(){
-        const startDisabled= this.props.startDisabled;
+function Move(props){
+        const startDisabled= props.startDisabled;
      return (
          <div>
         {startDisabled ? ( 
          <div id="movesContainer">
-             <div id="moveNorth" onClick={this.props.moveNorth}>
+             <button id="moveNorth" onClick={props.moveNorth}>
                 Move North
-             </div>
-             <div id="moveEast" onClick={this.props.moveEast}>
+             </button>
+             <button id="moveEast" onClick={props.moveEast}>
              Move East
-             </div>
-             <div id="moveSouth" onClick={this.props.moveSouth}>
+             </button>
+             <button id="moveSouth" onClick={props.moveSouth}>
              Move South
-             </div>
-             <div id="moveWest" onClick={this.props.moveWest}>
+             </button>
+             <button id="moveWest" onClick={props.moveWest}>
              Move West
-             </div>
-             <div id="return" onClick={this.props.returnToStart}>
+             </button>
+             <button id="return" onClick={props.returnToStart}>
              Return to Start
-             </div>
+             </button>
          </div>
         
          ) : null}
          </div>
      ) 
     }
-}
+
 
 export default Move 

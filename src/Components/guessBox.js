@@ -1,16 +1,16 @@
 import React from "react"
 
-class GuessBox extends React.Component{
-    render(){
-    const modal= this.props.modal;
+function GuessBox(props) {
+    
+    const modal= props.modal;
     return(
        
   <div>
     {modal ? (
         <div class="modalcontainer">
-                <div class="modal">
+                <div className="modal">
                     <h1>What County are we in?</h1>
-                    <label for="counties">Choose and county:</label>
+                    <label htmlFor="counties">Choose and county:</label>
 
                     <select name="counties" id="countyList">
                       <option value="Addison County">Addison</option>
@@ -28,17 +28,17 @@ class GuessBox extends React.Component{
                       <option value="Windsor County">Windsor</option>
                     </select>
 
-                    <button id="makeGuess" onClick={this.props.makeGuess}>Select County</button>
-                    <button id="cancelGuess" onClick={this.props.closeModal}>Cancel</button>
+                    <button id="makeGuess" onClick={props.makeGuess}>Select County</button>
+                    <button id="cancelGuess" onClick={props.closeModal}>Cancel</button>
                 </div>
-                <button onClick={this.props.closeModal}>Close</button>  
+                <button onClick={props.closeModal}>Close</button>  
         </div>
          ) : null}
   </div>
   )
 
 }
-}
+
 
 
 export default GuessBox

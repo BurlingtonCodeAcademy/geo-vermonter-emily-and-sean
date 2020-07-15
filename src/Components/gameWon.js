@@ -1,9 +1,9 @@
 import React from "react";
 
 
-class GameWon extends React.Component {
-  render() {
-    const modal = this.props.winModal;
+function GameWon(props) {
+  
+    const modal = props.winModal;
     return (
       <div>
         {modal ? (
@@ -11,16 +11,16 @@ class GameWon extends React.Component {
             <div class="modal">
               You've won! Please enter your name to save your high score!
               <form id="nameForm">
-                <input id="userName" placeholder="Enter your name here" onChange={this.props.handleChange} value={this.props.userName}></input>
-                <button id="submitName" onClick={this.props.submitName}>Submit</button>
+                <input id="userName" placeholder="Enter your name here" onChange={props.handleChange} value={this.props.userName}></input>
+                <button id="submitName" onClick={props.submitName}>Submit</button>
               </form>
             </div>
-            <button onClick={this.props.closeModal}>Close</button>
+            <button onClick={props.closeModal}>Close</button>
           </div>
         ) : null}
       </div>
     );
   }
-}
+
 
 export default GameWon;
