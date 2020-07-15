@@ -7,7 +7,7 @@ function GuessBox(props) {
        
   <div>
     {modal ? (
-        <div class="modalcontainer">
+        <div className="modalcontainer">
                 <div className="modal">
                     <h1>What County are we in?</h1>
                     <label htmlFor="counties">Choose and county:</label>
@@ -21,6 +21,7 @@ function GuessBox(props) {
                       <option value="Franklin County">Franklin</option>
                       <option value="Grand Isle County">Grand Isle</option>
                       <option value="Lamoille County">Lamoille</option>
+                      <option value="Orange County">Orange</option>
                       <option value="Orleans County">Orleans</option>
                       <option value="Rutland County">Rutland</option>
                       <option value="Washington County">Washington</option>

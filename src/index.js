@@ -63,6 +63,10 @@ componentDidMount(){
     evt.preventDefault();
     let start = randomLocation();
     this.setState({
+      latDisplay: "?",
+      lngDisplay: "?",
+      town: "?",
+      county: "?",
       startDisabled: true,
       guessDisabled: false,
       quitDisabled: false,
@@ -128,7 +132,7 @@ componentDidMount(){
     this.setState({
       winModal: false
     })
-    
+    window.location.reload();
   }
 
   //Sets the username
@@ -204,6 +208,7 @@ componentDidMount(){
           county: json.features[0].properties.address.county,
           latDisplay: this.state.initialLat,
           lngDisplay: this.state.initialLng,
+          moveArr: []
         });
       });
   

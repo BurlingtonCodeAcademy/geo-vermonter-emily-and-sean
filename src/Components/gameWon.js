@@ -7,11 +7,11 @@ function GameWon(props) {
     return (
       <div>
         {modal ? (
-          <div class="modalcontainer">
-            <div class="modal">
+          <div className="modalcontainer">
+            <div className="modal">
               You've won! Please enter your name to save your high score!
               <form id="nameForm">
-                <input id="userName" placeholder="Enter your name here" onChange={props.handleChange} value={this.props.userName}></input>
+                <input id="userName" placeholder="Enter your name here" onChange={props.handleChange} value={props.userName}></input>
                 <button id="submitName" onClick={props.submitName}>Submit</button>
               </form>
             </div>
