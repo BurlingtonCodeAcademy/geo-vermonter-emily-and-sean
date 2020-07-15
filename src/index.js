@@ -76,6 +76,7 @@ componentDidMount(){
       initialLng: start[0],
       moveArr: this.state.moveArr.concat([[start[1], start[0]]]),
       zoom: 18,
+      score: 100
     });
 
     //Gives a random lat and lng between the max and min lat and lng of Vermont.
@@ -175,6 +176,7 @@ componentDidMount(){
         })
 
         alert(`You are correct! Your score is: ${currentScore}`)
+
 
       } else {
         currentScore = currentScore - 10;
