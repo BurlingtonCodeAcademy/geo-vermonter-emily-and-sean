@@ -1,0 +1,23 @@
+/*Styles the modal*/
+
+.modalcontainer{
+    position: fixed;
+    top: 0;
+    left:0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(128, 128, 128, 0.8);
+    z-index: 1000;
+  }
+  
+  .modal{
+    position: absolute;
+    top: 20vh;
+    left: calc(50% - 200px);
+    
+    height: 450px;
+    width: 400px;
+    background-color: white;
+    z-index: 1000;
+  }
+  
